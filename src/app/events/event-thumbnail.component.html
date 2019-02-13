@@ -1,0 +1,18 @@
+<div class="well hoverwell thumbnail">
+    <div class="row">
+        <div class="col-sm-5">
+            <img src='{{event.imageUrl}}' />
+        </div>
+        <div class="col-sm-7">
+            <h2>{{event.name}}</h2>
+            <div>Date : {{event.date}}</div>
+            <div>Heure: {{event.time}}</div>
+            <div>Prix: {{event.price}} €</div>
+            <div>
+                <span>Adresse : {{event.location.address}}</span>
+                <span>&nbsp;</span>
+                <span>{{event.location.city}}, {{event.location.country}}</span>
+            </div>
+        </div>
+    </div>
+</div>
