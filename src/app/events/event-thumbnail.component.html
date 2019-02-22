@@ -1,16 +1,26 @@
 <div class="well hoverwell thumbnail">
     <div class="row">
-        <div class="col-sm-5">
-            <img src='{{event.imageUrl}}' />
+        <div class="col-sm-6">
+            <img src='{{event?.imageUrl}}' width='250vw' />
+            <button (click)="hideShowDetails()">Hide / Show details</button>
         </div>
-        <div class="col-sm-7">
-            <h2>{{event.name}}</h2>
-            <div>Date : {{event.date}}</div>
-            <div>Heure: {{event.time}}</div>
-            <div>Prix: {{event.price}} €</div>
-            <div>
-                <span>Adresse : {{event.location.address}}</span>
-                <span class="pad-left">{{event.location.city}}, {{event.location.country}}</span>
+        <div class="col-sm-6" [hidden]="hideDetails">
+            <h2>{{event?.name}}</h2>
+            <div>Date : {{event?.date}}</div>
+            <!-- <div [ngClass]="getStartTimeClass()" [ngSwitch]="event?.time"> -->
+            <div [ngStyle]="getStartTimeStyle()" [ngSwitch]="event?.time">
+                Heure: {{event?.time}} -
+                <span *ngSwitchCase="'8:00 am'">Early start</span>
+                <span *ngSwitchCase="'10:00 am'">Late start</span>
+                <span *ngSwitchDefault>Normal start</span>
+            </div>
+            <div>Prix: {{event?.price}} €</div>
+            <div *ngIf="event?.location">
+                <span>Adresse : {{event?.location?.address}} {{event?.location?.city}},
+                    {{event?.location?.country}}</span>
+            </div>
+            <div *ngIf="event?.onlineUrl">
+                Online URL : <a href="{{event?.onlineUrl}}" target="_blank">{{event?.onlineUrl}}</a>
             </div>
         </div>
     </div>
