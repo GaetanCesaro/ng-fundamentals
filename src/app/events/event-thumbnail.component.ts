@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
       .well div { color: #bbb; }
       .green { color: #003300 !important; }
       .bold { font-weight: bold; }
+      .event-image { height: 100px; }
     `]
 })
 export class EventThumbnailComponent {

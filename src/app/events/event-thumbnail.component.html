@@ -1,7 +1,7 @@
 <div class="well hoverwell thumbnail">
     <div class="row">
         <div class="col-sm-6">
-            <img src='{{event?.imageUrl}}' width='250vw' />
+            <img src='{{event?.imageUrl}}' class="event-image" />
             <button (click)="hideShowDetails()">Hide / Show details</button>
         </div>
         <div class="col-sm-6" [hidden]="hideDetails">
