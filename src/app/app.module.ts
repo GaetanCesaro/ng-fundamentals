@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastrService } from './common/toastr.service';
+import { AuthService } from './user/auth.service';
 
 import {
   EventsListComponent,
@@ -41,7 +42,8 @@ import { NavBarComponent } from './nav/navbar.component';
     {
       provide: 'canDeactivateCreateEvent',
       useValue: checkDirtyState
-    }
+    },
+    AuthService
   ],
   bootstrap: [EventsAppComponent]
 })
