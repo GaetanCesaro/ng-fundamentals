@@ -4,9 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { userRoutes } from './user.routes';
-import { ProfileComponent } from './profile.component';
+import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
-import { AuthService } from './auth.service';
 
 @NgModule({
     imports: [

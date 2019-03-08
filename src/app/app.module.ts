@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ToastrService } from './common/toastr.service';
-import { AuthService } from './user/auth.service';
+import { ToastrService } from './services/toastr.service';
+import { AuthService } from './services/auth.service';
 
 import {
   EventsListComponent,
@@ -12,12 +12,12 @@ import {
   EventService,
   EventRouteActivator,
   EventListResolver
-} from './events/index'
+} from './modules/events/index'
 
-import { EventsAppComponent } from './events-app.component';
 import { appRoutes } from 'src/routes';
-import { Error404Component } from './errors/404.component';
-import { NavBarComponent } from './nav/navbar.component';
+import { EventsAppComponent } from './events-app.component';
+import { Error404Component } from './shared/errors/404.component';
+import { NavBarComponent } from './shared/nav/navbar.component';
 
 
 @NgModule({
