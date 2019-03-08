@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { ToastrService } from './services/toastr.service';
-import { AuthService } from './services/auth.service';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { ToastrService } from "./services/toastr.service";
+import { AuthService } from "./services/auth.service";
 
 import {
   EventsListComponent,
@@ -12,19 +12,15 @@ import {
   EventService,
   EventRouteActivator,
   EventListResolver
-} from './modules/events/index'
+} from "./modules/events/index";
 
-import { appRoutes } from 'src/routes';
-import { EventsAppComponent } from './events-app.component';
-import { Error404Component } from './shared/errors/404.component';
-import { NavBarComponent } from './shared/nav/navbar.component';
-
+import { appRoutes } from "src/routes";
+import { EventsAppComponent } from "./events-app.component";
+import { Error404Component } from "./shared/errors/404.component";
+import { NavBarComponent } from "./shared/nav/navbar.component";
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(appRoutes)
-  ],
+  imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
   declarations: [
     EventsAppComponent,
     EventsListComponent,
@@ -40,19 +36,20 @@ import { NavBarComponent } from './shared/nav/navbar.component';
     EventRouteActivator,
     EventListResolver,
     {
-      provide: 'canDeactivateCreateEvent',
+      provide: "canDeactivateCreateEvent",
       useValue: checkDirtyState
     },
     AuthService
   ],
   bootstrap: [EventsAppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 
 export function checkDirtyState(component: CreateEventComponent) {
   if (component.isDirty) {
-    return window.confirm('You have not saved this event, do you really want to cancel ?');
+    return window.confirm(
+      "You have not saved this event, do you really want to cancel ?"
+    );
   }
   return true;
 }
-
