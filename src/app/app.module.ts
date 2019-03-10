@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrService } from "./services/toastr.service";
 import { AuthService } from "./services/auth.service";
 
@@ -20,7 +21,7 @@ import { Error404Component } from "./shared/errors/404.component";
 import { NavBarComponent } from "./shared/nav/navbar.component";
 
 @NgModule({
-  imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
+  imports: [BrowserModule, RouterModule.forRoot(appRoutes), FormsModule, ReactiveFormsModule],
   declarations: [
     EventsAppComponent,
     EventsListComponent,
