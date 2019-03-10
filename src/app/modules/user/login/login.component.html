@@ -2,7 +2,11 @@
 <hr />
 <div class="col-md-4"></div>
 <div class="col-md-4">
-  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" autocomplete="off">
+  <form
+    #loginForm="ngForm"
+    (ngSubmit)="login(loginForm.value)"
+    autocomplete="off"
+  >
     <div class="form-group">
       <label for="userName">User Name:</label>
       <em

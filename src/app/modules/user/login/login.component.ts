@@ -22,8 +22,7 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  login(loginForm) {
-    let formValues = loginForm.value;
+  login(formValues) {
     this.authService.loginUser(formValues.userName, formValues.password);
     this.router.navigate(["/events"]);
   }
