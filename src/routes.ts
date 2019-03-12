@@ -6,7 +6,8 @@ import {
   EventDetailsComponent,
   CreateEventComponent,
   EventRouteActivator,
-  EventListResolver
+  EventListResolver,
+  CreateSessionComponent
 } from "./app/modules/events/index";
 
 export const appRoutes: Routes = [
@@ -24,6 +25,10 @@ export const appRoutes: Routes = [
     path: "events/:id",
     component: EventDetailsComponent,
     canActivate: [EventRouteActivator]
+  },
+  {
+    path: "events/sessions/new",
+    component: CreateSessionComponent
   },
   { path: "404", component: Error404Component },
   { path: "", redirectTo: "/events", pathMatch: "full" },

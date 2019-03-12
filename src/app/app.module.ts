@@ -19,6 +19,7 @@ import { appRoutes } from "src/routes";
 import { EventsAppComponent } from "./events-app.component";
 import { Error404Component } from "./shared/errors/404.component";
 import { NavBarComponent } from "./shared/nav/navbar.component";
+import { CreateSessionComponent } from './modules/events/create-session/create-session.component';
 
 @NgModule({
   imports: [BrowserModule, RouterModule.forRoot(appRoutes), FormsModule, ReactiveFormsModule],
@@ -29,7 +30,8 @@ import { NavBarComponent } from "./shared/nav/navbar.component";
     EventDetailsComponent,
     CreateEventComponent,
     NavBarComponent,
-    Error404Component
+    Error404Component,
+    CreateSessionComponent
   ],
   providers: [
     EventService,
