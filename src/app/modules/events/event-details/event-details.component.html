@@ -2,7 +2,7 @@
     <img [src]="event?.imageUrl" [alt]="event?.name" class="event-image">
 
     <div class="row">
-        <div class="col-md-11">
+        <div class="col-md-12">
             <h2>{{event?.name}} </h2>
         </div>
     </div>
@@ -21,4 +21,19 @@
             </address>
         </div>
     </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-2">
+        <h3>Sessions</h3>
+      </div>
+      <div class="col-md-6">
+        <h3><a (click)="addSession()">Add Session</a></h3>
+      </div>
+    </div>
+
+    <session-list *ngIf="!addMode" [sessions]="event?.sessions"></session-list>
+
+    <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" (cancelNewSession)="cancelNewSession()"></create-session>
 </div>
