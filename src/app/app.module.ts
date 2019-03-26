@@ -1,10 +1,14 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, LOCALE_ID } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrService } from "./services/toastr.service";
 import { AuthService } from "./services/auth.service";
 import { appRoutes } from "src/routes";
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeFr);
 
 import {
   EventsListComponent,
@@ -14,14 +18,18 @@ import {
   EventService,
   EventRouteActivator,
   EventListResolver,
-  SessionListCompoment
+  SessionListCompoment,
+  CreateSessionComponent
 } from "./modules/events/index";
 
+import {
+  CollapsibleWellComponent,
+  Error404Component,
+  NavBarComponent,
+  DurationPipe
+} from "./shared/index";
+
 import { EventsAppComponent } from "./events-app.component";
-import { Error404Component } from "./shared/errors/404.component";
-import { NavBarComponent } from "./shared/nav/navbar.component";
-import { CreateSessionComponent } from './modules/events/create-session/create-session.component';
-import { CollapsibleWellComponent } from './shared/components/collapsible-well.component';
 
 @NgModule({
   imports: [BrowserModule, RouterModule.forRoot(appRoutes), FormsModule, ReactiveFormsModule],
@@ -35,9 +43,11 @@ import { CollapsibleWellComponent } from './shared/components/collapsible-well.c
     Error404Component,
     CreateSessionComponent,
     SessionListCompoment,
-    CollapsibleWellComponent
+    CollapsibleWellComponent,
+    DurationPipe
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'fr-FR' },
     EventService,
     ToastrService,
     EventRouteActivator,
