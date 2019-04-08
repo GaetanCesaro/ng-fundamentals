@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { ISession } from '../../../../shared';
+import { Session } from 'inspector';
 
 @Component({
   selector: 'session-list',
@@ -9,10 +10,12 @@ export class SessionListCompoment implements OnChanges {
   @Input() sessions: ISession[];
   @Input() filteredSessions: ISession[];
   @Input() filterBy: string;
+  @Input() sortBy: string;
 
   ngOnChanges() {
     if (this.sessions) {
       this.filterSessions(this.filterBy)
+      this.sortSessions(this.sortBy)
     }
   }
 
@@ -25,4 +28,27 @@ export class SessionListCompoment implements OnChanges {
       });
     }
   }
+
+  sortSessions(sort: string) {
+    switch (sort) {
+      case 'name':
+        this.filteredSessions.sort(sortByNameAsc);
+        break;
+
+      case 'votes':
+      default:
+        this.filteredSessions.sort(sortByVotesDesc);
+        break;
+    }
+  }
+}
+
+function sortByNameAsc(s1: ISession, s2: ISession) {
+  if (s1.name > s2.name) return 1;
+  else if (s1.name === s2.name) return 0;
+  else return -1;
+}
+
+function sortByVotesDesc(s1: ISession, s2: ISession) {
+  return s2.voters.length - s1.voters.length;
 }
