@@ -10,6 +10,8 @@ import { registerLocaleData } from '@angular/common';
 
 registerLocaleData(localeFr);
 
+import { NavBarComponent } from './shared/nav/navbar.component';
+
 import {
   EventsListComponent,
   EventThumbnailComponent,
@@ -25,7 +27,6 @@ import {
 import {
   CollapsibleWellComponent,
   Error404Component,
-  NavBarComponent,
   DurationPipe
 } from "./shared/index";
 
