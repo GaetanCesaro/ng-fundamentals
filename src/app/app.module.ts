@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, LOCALE_ID } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { ToastrService } from "./services/toastr.service";
+import { TOASTR_TOKEN, Toastr } from "./services/toastr.service";
 import { AuthService } from "./services/auth.service";
 import { appRoutes } from "src/routes";
 import localeFr from '@angular/common/locales/fr';
@@ -31,6 +31,8 @@ import {
 
 import { EventsAppComponent } from "./events-app.component";
 
+declare let toastr: Toastr
+
 @NgModule({
   imports: [BrowserModule, RouterModule.forRoot(appRoutes), FormsModule, ReactiveFormsModule],
   declarations: [
@@ -49,14 +51,11 @@ import { EventsAppComponent } from "./events-app.component";
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     EventService,
-    ToastrService,
+    { provide: TOASTR_TOKEN, useValue: toastr },
     EventRouteActivator,
     EventListResolver,
-    {
-      provide: "canDeactivateCreateEvent",
-      useValue: checkDirtyState
-    },
-    AuthService
+    AuthService,
+    { provide: "canDeactivateCreateEvent", useValue: checkDirtyState }
   ],
   bootstrap: [EventsAppComponent]
 })
