@@ -1,4 +1,7 @@
 export * from './components/collapsible-well.component'
+export * from './components/simple-modal.component'
+
+export * from './components/modal-trigger.directive'
 
 export * from './errors/404.component'
 

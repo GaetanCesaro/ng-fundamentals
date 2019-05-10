@@ -3,6 +3,7 @@ import { NgModule, LOCALE_ID } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TOASTR_TOKEN, Toastr } from "./services/toastr.service";
+import { JQUERY_TOKEN } from "./services/jquery.service";
 import { AuthService } from "./services/auth.service";
 import { appRoutes } from "src/routes";
 import localeFr from '@angular/common/locales/fr';
@@ -27,12 +28,15 @@ import {
 import {
   CollapsibleWellComponent,
   Error404Component,
-  DurationPipe
+  DurationPipe,
+  SimpleModalComponent,
+  ModalTriggerDirective
 } from "./shared/index";
 
 import { EventsAppComponent } from "./events-app.component";
 
-declare let toastr: Toastr
+let toastr: Toastr = window['toastr'];
+let jquery = window['$'];
 
 @NgModule({
   imports: [BrowserModule, RouterModule.forRoot(appRoutes), FormsModule, ReactiveFormsModule],
@@ -47,12 +51,15 @@ declare let toastr: Toastr
     CreateSessionComponent,
     SessionListCompoment,
     CollapsibleWellComponent,
+    SimpleModalComponent,
+    ModalTriggerDirective,
     DurationPipe
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     EventService,
     { provide: TOASTR_TOKEN, useValue: toastr },
+    { provide: JQUERY_TOKEN, useValue: jquery },
     EventRouteActivator,
     EventListResolver,
     AuthService,
