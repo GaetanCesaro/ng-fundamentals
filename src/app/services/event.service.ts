@@ -44,7 +44,7 @@ export class EventService {
         })
     );
 
-    var emitter = new EventEmitter(true);
+    var emitter = new EventEmitter<ISession[]>(true);
     setTimeout(() => {
       emitter.emit(foundSessions);
     })

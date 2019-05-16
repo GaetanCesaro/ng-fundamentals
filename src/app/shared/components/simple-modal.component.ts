@@ -18,7 +18,7 @@ import { Component, Input } from '@angular/core';
         </div>
     `,
     styles: [`
-        .modal-body { height: 250px; overflox-y: scroll; }
+        .modal-body { height: 250px; overflox-y: scroll; padding: 0px; }
     `]
 })
 export class SimpleModalComponent {

@@ -8,9 +8,10 @@ import { EventService } from '../../modules/events';
     templateUrl: './navbar.component.html',
     styles: [`
         .nav.navbar-nav { font-size: 15px; }
-        #searchForm { margin-right: 100px; }
+        .navbar-form { padding: 0px; }
         @media (max-width: 1200px) { #searchForm {display} }
         li > a.active { color: #F97924; }
+        .search-input { max-width: 150px;}
     `]
 })
 export class NavBarComponent {
