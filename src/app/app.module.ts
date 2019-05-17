@@ -8,6 +8,7 @@ import { AuthService } from "./services/auth.service";
 import { appRoutes } from "src/routes";
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 registerLocaleData(localeFr);
 
@@ -19,7 +20,7 @@ import {
   EventDetailsComponent,
   CreateEventComponent,
   EventService,
-  EventRouteActivator,
+  EventResolver,
   EventListResolver,
   SessionListCompoment,
   CreateSessionComponent
@@ -39,7 +40,13 @@ let toastr: Toastr = window['toastr'];
 let jquery = window['$'];
 
 @NgModule({
-  imports: [BrowserModule, RouterModule.forRoot(appRoutes), FormsModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
   declarations: [
     EventsAppComponent,
     EventsListComponent,
@@ -60,7 +67,7 @@ let jquery = window['$'];
     EventService,
     { provide: TOASTR_TOKEN, useValue: toastr },
     { provide: JQUERY_TOKEN, useValue: jquery },
-    EventRouteActivator,
+    EventResolver,
     EventListResolver,
     AuthService,
     { provide: "canDeactivateCreateEvent", useValue: checkDirtyState }
