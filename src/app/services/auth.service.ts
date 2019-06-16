@@ -30,8 +30,25 @@ export class AuthService {
     return !!this.currentUser;
   }
 
+  checkAuthenticationStatus() {
+    this.http.get('/api/currentIdentity')
+      .pipe(tap(data => {
+        if (data instanceof Object) {
+          this.currentUser = <IUser>data;
+        }
+      }))
+      .subscribe();
+  }
+
   updateCurrentUser(firstName, lastName) {
+    let options = {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    };
+
     this.currentUser.firstName = firstName;
     this.currentUser.lastName = lastName;
+
+    return this.http
+      .put<IUser>(`/api/users/${this.currentUser.id}`, this.currentUser, options);
   }
 }
