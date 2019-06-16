@@ -32,6 +32,12 @@ export class EventDetailsComponent {
     this.addMode = true;
   }
 
+  deleteEvent() {
+    this.eventService.deleteEvent(this.event.id).subscribe((event) => {
+      console.log("Event deleted !", event);
+    });
+  }
+
   saveNewSession(session: ISession) {
     const nextId = Math.max.apply(null, this.event.sessions.map(s => s.id));
     session.id = nextId + 1;

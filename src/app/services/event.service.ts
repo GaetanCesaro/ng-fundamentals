@@ -28,6 +28,11 @@ export class EventService {
       .pipe(catchError(this.handleError<IEvent>('saveEvent', event)));
   }
 
+  deleteEvent(id: number) : Observable<IEvent> {
+    return this.http.delete<IEvent>('/api/event/'+id)
+      .pipe(catchError(this.handleError<IEvent>('deleteEvent')));
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
