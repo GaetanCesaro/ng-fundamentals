@@ -41,14 +41,18 @@ export class AuthService {
   }
 
   updateCurrentUser(firstName, lastName) {
-    let options = {
-      headers: new HttpHeaders({ "Content-Type": "application/json" })
-    };
+    let options = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
 
     this.currentUser.firstName = firstName;
     this.currentUser.lastName = lastName;
 
     return this.http
       .put<IUser>(`/api/users/${this.currentUser.id}`, this.currentUser, options);
+  }
+
+  logout() {
+    let options = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
+    this.currentUser = undefined;
+    return this.http.post('/api/logout', {}, options);
   }
 }

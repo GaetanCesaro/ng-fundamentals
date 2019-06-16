@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
+import { Location } from '@angular/common';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from "../../../services/auth.service";
 import { Router } from "@angular/router";
@@ -12,6 +13,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private router: Router,
+    private location: Location,
     @Inject(TOASTR_TOKEN) private toastr: Toastr) { }
 
   ngOnInit() {
@@ -51,7 +53,18 @@ export class ProfileComponent implements OnInit {
       this.authService.updateCurrentUser(this.profileForm.value.firstName, this.profileForm.value.lastName)
         .subscribe(() => {
           this.toastr.success('Profile saved');
+          this.location.back();
         });
     }
+  }
+
+  cancel() {
+    this.location.back();
+  }
+
+  logout() {
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 }
