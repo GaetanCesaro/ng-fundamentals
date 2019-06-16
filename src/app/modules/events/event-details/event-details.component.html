@@ -25,10 +25,12 @@
     <hr>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2" style="margin-bottom: 10px;">
             <h3>Sessions</h3>
+            <button type="button" class="btn btn-default" (click)="addSession()">Add Session</button>
+            <button type="button" class="btn btn-warning" style="float: right" (click)="deleteEvent()">Delete Event</button>
         </div>
-        <div class="col-md-6" style="margin-bottom: 10px;">
+        <div class="col-md-6">
             <div class="btn-group btn-group-sm" style="margin: 0 10px 0 10px;">
                 <button class="btn btn-default" [class.active]="sortBy==='name'" (click)="sortBy='name'">By
                     Name</button>
@@ -45,10 +47,6 @@
                 <button class="btn btn-default" [class.active]="filterBy==='advanced'"
                     (click)="filterBy='advanced'">Advanced</button>
             </div>
-        </div>
-        <div class="col-md-4">
-            <h3><a (click)="addSession()">Add Session</a></h3>
-            <h3><a (click)="deleteEvent()">Delete Event</a></h3>
         </div>
     </div>
 
