@@ -32,7 +32,7 @@ export class EventService {
   }
 
   deleteEvent(id: number) : Observable<IEvent> {
-    return this.http.delete<IEvent>('/api/event/'+id)
+    return this.http.delete<IEvent>('/api/events/'+id)
       .pipe(catchError(this.handleError<IEvent>('deleteEvent')));
   }
 

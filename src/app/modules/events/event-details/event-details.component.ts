@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { EventService } from '../../../services/event.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ISession, IEvent } from '../../../shared';
+import { TOASTR_TOKEN, Toastr } from 'src/app/services/toastr.service';
 
 @Component({
   templateUrl: './event-details.component.html',
@@ -16,7 +17,10 @@ export class EventDetailsComponent {
   filterBy: string = 'all';
   sortBy: string = 'votes';
 
-  constructor(private eventService: EventService, private route: ActivatedRoute) {
+  constructor(private eventService: EventService,
+    private route: ActivatedRoute,
+    private router: Router,
+    @Inject(TOASTR_TOKEN) private toastr: Toastr) {
   }
 
   ngOnInit() {
@@ -33,8 +37,10 @@ export class EventDetailsComponent {
   }
 
   deleteEvent() {
+    let eventName = this.event.name;
     this.eventService.deleteEvent(this.event.id).subscribe((event) => {
-      console.log("Event deleted !", event);
+      this.toastr.success('Event ' + eventName + ' deleted');
+      this.router.navigate(['/events']);
     });
   }
 
