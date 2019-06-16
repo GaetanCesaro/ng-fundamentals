@@ -1,31 +1,34 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { IEvent, ISession } from '../shared/models/event.model';
-import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { Injectable, EventEmitter } from "@angular/core";
+import { IEvent, ISession } from "../shared/models/event.model";
+import { Observable, of } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { catchError } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class EventService {
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   getEvents(): Observable<IEvent[]> {
-    return this.http.get<IEvent[]>('/api/events')
-      .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
+    return this.http
+      .get<IEvent[]>("/api/events")
+      .pipe(catchError(this.handleError<IEvent[]>("getEvents", [])));
   }
 
   getEvent(id: number): Observable<IEvent> {
-    return this.http.get<IEvent>('/api/events/'+id)
-      .pipe(catchError(this.handleError<IEvent>('getEvent')));
+    return this.http
+      .get<IEvent>("/api/events/" + id)
+      .pipe(catchError(this.handleError<IEvent>("getEvent")));
   }
 
   saveEvent(event: IEvent): Observable<IEvent> {
-    let options = { headers: new HttpHeaders({'Content-Type': 'application/json'})};
-    return this.http.post<IEvent>('/api/events', event, options)
-      .pipe(catchError(this.handleError<IEvent>('saveEvent', event)));
+    let options = {
+      headers: new HttpHeaders({ "Content-Type": "application/json" })
+    };
+    return this.http
+      .post<IEvent>("/api/events", event, options)
+      .pipe(catchError(this.handleError<IEvent>("saveEvent", event)));
   }
 
   deleteEvent(id: number) : Observable<IEvent> {
@@ -33,56 +36,38 @@ export class EventService {
       .pipe(catchError(this.handleError<IEvent>('deleteEvent')));
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    }
-  }
-
-  searchSessions(searchTerm: string) {
+  searchSessions(searchTerm: string): Observable<ISession[]> {
     var foundSessions: ISession[] = [];
     searchTerm = searchTerm.toLowerCase();
 
-    EVENTS.forEach(e => {
-        var matchingSessions: ISession[] = [];
-        e.sessions
-        .filter(s => s.name.toLowerCase().includes(searchTerm) || s.abstract.toLocaleLowerCase().includes(searchTerm))
-        .forEach(s => {
-          matchingSessions.push(s);
-        });
+    console.log("Searching ", searchTerm);
 
-        matchingSessions = matchingSessions.map((session: any) => {
-          session.eventId = e.id;
-          return session;
-        });
+    return this.http
+      .get<ISession[]>("/api/sessions/search?search=" + searchTerm)
+      .pipe(catchError(this.handleError<ISession[]>("searchSessions")));
+  }
 
-        foundSessions = foundSessions.concat(matchingSessions);
-    });
-
-    console.log(foundSessions)
-
-    var emitter = new EventEmitter<ISession[]>(true);
-    setTimeout(() => {
-      emitter.emit(foundSessions);
-    })
-
-    return emitter;
+  private handleError<T>(operation = "operation", result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
   }
 }
 
+/*
 const EVENTS: IEvent[] = [
   {
     id: 1,
-    name: 'Angular Connect',
+    name: "Angular Connect",
     date: new Date(2036, 9, 26),
-    time: '10:00 am',
+    time: "10:00 am",
     price: 599.99,
-    imageUrl: '/assets/images/angularconnect-shield.png',
+    imageUrl: "/assets/images/angularconnect-shield.png",
     location: {
-      address: '1057 DT',
-      city: 'London',
-      country: 'England'
+      address: "1057 DT",
+      city: "London",
+      country: "England"
     },
     sessions: [
       {
@@ -95,7 +80,7 @@ const EVENTS: IEvent[] = [
         how to write them, and how to get the new AI CLI to write
         them for you. Given by the famous PBD, president of Angular
         University (formerly Oxford University)`,
-        voters: ['bradgreen', 'igorminar', 'martinfowler']
+        voters: ["bradgreen", "igorminar", "martinfowler"]
       },
       {
         id: 2,
@@ -107,7 +92,7 @@ const EVENTS: IEvent[] = [
         the right management they can be even more productive, without
         overworking them. In this session I'll show you how to get the
         best results from the talent you already have on staff.`,
-        voters: ['johnpapa', 'bradgreen', 'igorminar', 'martinfowler']
+        voters: ["johnpapa", "bradgreen", "igorminar", "martinfowler"]
       },
       {
         id: 3,
@@ -146,18 +131,18 @@ const EVENTS: IEvent[] = [
         will give you everything you need to know about Angular 4 to
         get started with it today and be building UI's for your self
         driving cars and butler-bots in no time.`,
-        voters: ['bradgreen', 'igorminar']
+        voters: ["bradgreen", "igorminar"]
       }
     ]
   },
   {
     id: 2,
-    name: 'ng-nl',
-    date: new Date('4/15/2037'),
-    time: '9:00 am',
-    price: 950.00,
-    imageUrl: '/assets/images/ng-nl.png',
-    onlineUrl: 'http://ng-nl.org/',
+    name: "ng-nl",
+    date: new Date("4/15/2037"),
+    time: "9:00 am",
+    price: 950.0,
+    imageUrl: "/assets/images/ng-nl.png",
+    onlineUrl: "http://ng-nl.org/",
     sessions: [
       {
         id: 1,
@@ -169,7 +154,7 @@ const EVENTS: IEvent[] = [
         you will also learn how to make the most of your team's efforts. Other topics
         will be convincing your manager that testing is a good idea, and using the new
         protractor tool for end to end testing.`,
-        voters: ['bradgreen', 'igorminar']
+        voters: ["bradgreen", "igorminar"]
       },
       {
         id: 2,
@@ -179,7 +164,7 @@ const EVENTS: IEvent[] = [
         level: "Intermediate",
         abstract: `In this workshop, David East will show you how to use Angular with the new
         ultra-real-time 5D Firebase back end, hosting platform, and wine recommendation engine.`,
-        voters: ['bradgreen', 'igorminar', 'johnpapa']
+        voters: ["bradgreen", "igorminar", "johnpapa"]
       },
       {
         id: 3,
@@ -190,7 +175,7 @@ const EVENTS: IEvent[] = [
         abstract: `Angular 4's source code may be over 25 million lines of code, but it's really
         a lot easier to read and understand then you may think. Patrick Stapleton will talk
         about his secretes for keeping up with the changes, and navigating around the code.`,
-        voters: ['martinfowler']
+        voters: ["martinfowler"]
       },
       {
         id: 4,
@@ -202,21 +187,21 @@ const EVENTS: IEvent[] = [
         secret to being awesome, and how he became the President
         of the United States through his amazing programming skills,
         showing how you too can be success with just attitude.`,
-        voters: ['bradgreen']
-      },
+        voters: ["bradgreen"]
+      }
     ]
   },
   {
     id: 3,
-    name: 'ng-conf 2037',
-    date: new Date('5/4/2037'),
-    time: '9:00 am',
-    price: 759.00,
-    imageUrl: '/assets/images/ng-conf.png',
+    name: "ng-conf 2037",
+    date: new Date("5/4/2037"),
+    time: "9:00 am",
+    price: 759.0,
+    imageUrl: "/assets/images/ng-conf.png",
     location: {
-      address: 'The Palatial America Hotel',
-      city: 'Salt Lake City',
-      country: 'USA'
+      address: "The Palatial America Hotel",
+      city: "Salt Lake City",
+      country: "USA"
     },
     sessions: [
       {
@@ -229,7 +214,7 @@ const EVENTS: IEvent[] = [
         know how the source code is really written? In this exciting look
         into the internals of Angular 4, we'll see exactly how Elm powers
         the framework, and what you can do to take advantage of this knowledge.`,
-        voters: ['bradgreen', 'martinfowler', 'igorminar']
+        voters: ["bradgreen", "martinfowler", "igorminar"]
       },
       {
         id: 2,
@@ -239,7 +224,7 @@ const EVENTS: IEvent[] = [
         level: "Intermediate",
         abstract: `React v449.6 has just been released. Let's see how to use
         this new version with Angular to create even more impressive applications.`,
-        voters: ['bradgreen', 'martinfowler']
+        voters: ["bradgreen", "martinfowler"]
       },
       {
         id: 3,
@@ -251,7 +236,7 @@ const EVENTS: IEvent[] = [
         Excel macros, but you're still having trouble grasping it? We'll take a look
         at how farmers use Redux when harvesting grain as a great introduction to
         this game changing technology.`,
-        voters: ['bradgreen', 'martinfowler', 'johnpapa']
+        voters: ["bradgreen", "martinfowler", "johnpapa"]
       },
       {
         id: 4,
@@ -261,7 +246,7 @@ const EVENTS: IEvent[] = [
         level: "Beginner",
         abstract: `Let's take a look at some of the stranger pieces of Angular 4,
         including neural net nets, Android in Androids, and using pipes with actual pipes.`,
-        voters: ['bradgreen', 'martinfowler', 'igorminar', 'johnpapa']
+        voters: ["bradgreen", "martinfowler", "igorminar", "johnpapa"]
       },
       {
         id: 5,
@@ -273,7 +258,7 @@ const EVENTS: IEvent[] = [
         You also have to look the part. In this amazing expose, Ward will talk you through
         how to pick out the right clothes to make your coworkers and boss not only
         respect you, but also want to be your buddy.`,
-        voters: ['bradgreen', 'martinfowler']
+        voters: ["bradgreen", "martinfowler"]
       },
       {
         id: 6,
@@ -284,21 +269,21 @@ const EVENTS: IEvent[] = [
         abstract: `Coinciding with the release of Star Wars Episode 18, this talk will show how
         to use directives in your Angular 4 development while drawing lessons from the new movie,
         featuring all your favorite characters like Han Solo's ghost and Darth Jar Jar.`,
-        voters: ['bradgreen', 'martinfowler']
-      },
+        voters: ["bradgreen", "martinfowler"]
+      }
     ]
   },
   {
     id: 4,
-    name: 'UN Angular Summit',
-    date: new Date('6/10/2037'),
-    time: '8:00 am',
-    price: 800.00,
-    imageUrl: '/assets/images/basic-shield.png',
+    name: "UN Angular Summit",
+    date: new Date("6/10/2037"),
+    time: "8:00 am",
+    price: 800.0,
+    imageUrl: "/assets/images/basic-shield.png",
     location: {
-      address: 'The UN Angular Center',
-      city: 'New York',
-      country: 'USA'
+      address: "The UN Angular Center",
+      city: "New York",
+      country: "USA"
     },
     sessions: [
       {
@@ -311,7 +296,7 @@ const EVENTS: IEvent[] = [
         we probably don't realize that sometimes our internal biases can make it difficult for
         these well-designed coworkers to really feel at home coding alongside us. This talk will
         look at things we can do to recognize our biases and counteract them.`,
-        voters: ['bradgreen', 'igorminar']
+        voters: ["bradgreen", "igorminar"]
       },
       {
         id: 2,
@@ -322,7 +307,7 @@ const EVENTS: IEvent[] = [
         abstract: `Angular has been used in most of the major peace brokering that has
         happened in the last decade, but there is still much we can do to remove all
         war from the world, and Angular will be a key part of that effort.`,
-        voters: ['bradgreen', 'igorminar', 'johnpapa']
+        voters: ["bradgreen", "igorminar", "johnpapa"]
       },
       {
         id: 3,
@@ -333,21 +318,21 @@ const EVENTS: IEvent[] = [
         abstract: `Androids may do everything for us now, allowing us to spend all day playing
         the latest Destiny DLC, but we can still improve the massages they give and the handmade
         brie they make using Angular 4. This session will show you how.`,
-        voters: ['igorminar', 'johnpapa']
-      },
+        voters: ["igorminar", "johnpapa"]
+      }
     ]
   },
   {
     id: 5,
-    name: 'ng-vegas',
-    date: new Date('2/10/2037'),
-    time: '9:00 am',
-    price: 400.00,
-    imageUrl: '/assets/images/ng-vegas.png',
+    name: "ng-vegas",
+    date: new Date("2/10/2037"),
+    time: "9:00 am",
+    price: 400.0,
+    imageUrl: "/assets/images/ng-vegas.png",
     location: {
-      address: 'The Excalibur',
-      city: 'Las Vegas',
-      country: 'USA'
+      address: "The Excalibur",
+      city: "Las Vegas",
+      country: "USA"
     },
     sessions: [
       {
@@ -361,7 +346,7 @@ const EVENTS: IEvent[] = [
         did you know that was also used to write the core engine in the majority
         of voting machines? This talk will look at how all presidential elections
         are now determined by Angular code.`,
-        voters: ['bradgreen', 'igorminar']
+        voters: ["bradgreen", "igorminar"]
       },
       {
         id: 2,
@@ -372,8 +357,9 @@ const EVENTS: IEvent[] = [
         abstract: `Get the skinny on Angular 4 for anyone new to this great new technology.
         Dan Wahlin will show you how you can get started with Angular in 60ish minutes,
         guaranteed!`,
-        voters: ['bradgreen', 'igorminar', 'johnpapa']
+        voters: ["bradgreen", "igorminar", "johnpapa"]
       }
     ]
   }
-]
+];
+*/
