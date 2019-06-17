@@ -23,6 +23,7 @@ import {
   EventResolver,
   EventListResolver,
   SessionListComponent,
+  UpvoteComponent,
   CreateSessionComponent
 } from "./modules/events/index";
 
@@ -57,6 +58,7 @@ let jquery = window['$'];
     Error404Component,
     CreateSessionComponent,
     SessionListComponent,
+    UpvoteComponent,
     CollapsibleWellComponent,
     SimpleModalComponent,
     ModalTriggerDirective,

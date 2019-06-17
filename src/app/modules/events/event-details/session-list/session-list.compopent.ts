@@ -42,6 +42,15 @@ export class SessionListComponent implements OnChanges {
         break;
     }
   }
+
+  toggleVote(session: ISession) {
+
+  }
+
+  userHasVoted(session: ISession) {
+
+  }
+
 }
 
 function sortByNameAsc(s1: ISession, s2: ISession) {
