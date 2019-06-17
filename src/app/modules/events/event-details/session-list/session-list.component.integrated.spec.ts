@@ -1,4 +1,6 @@
 import { SessionListComponent } from './session-list.compopent';
+import { UpvoteComponent } from './upvote.component';
+
 import { ISession, CollapsibleWellComponent } from '../../../../shared';
 
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
@@ -20,7 +22,7 @@ describe('SessionListComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [],
-      declarations: [ SessionListComponent, DurationPipe, CollapsibleWellComponent ],
+      declarations: [ SessionListComponent, DurationPipe, CollapsibleWellComponent, UpvoteComponent ],
       providers: [
         { provide: AuthService, useValue: mockAuthService }
       ],
