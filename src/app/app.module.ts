@@ -22,7 +22,7 @@ import {
   EventService,
   EventResolver,
   EventListResolver,
-  SessionListCompoment,
+  SessionListComponent,
   CreateSessionComponent
 } from "./modules/events/index";
 
@@ -56,7 +56,7 @@ let jquery = window['$'];
     NavBarComponent,
     Error404Component,
     CreateSessionComponent,
-    SessionListCompoment,
+    SessionListComponent,
     CollapsibleWellComponent,
     SimpleModalComponent,
     ModalTriggerDirective,

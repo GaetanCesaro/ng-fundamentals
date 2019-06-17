@@ -5,7 +5,7 @@ import { ISession } from '../../../../shared';
   selector: 'session-list',
   templateUrl: './session-list.component.html',
 })
-export class SessionListCompoment implements OnChanges {
+export class SessionListComponent implements OnChanges {
   @Input() sessions: ISession[];
   @Input() filteredSessions: ISession[];
   @Input() filterBy: string;
@@ -26,6 +26,8 @@ export class SessionListCompoment implements OnChanges {
         return s.level.toLocaleLowerCase() === filter;
       });
     }
+
+    console.log('Filtered sessions', this.filteredSessions);
   }
 
   sortSessions(sort: string) {
