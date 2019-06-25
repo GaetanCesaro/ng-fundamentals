@@ -1,52 +1,36 @@
 <div *ngIf="authService.isAuthenticated()">
   <h1>Edit Your Profile</h1>
   <hr />
-  <div class="col-md-4">
-    <form
-      [formGroup]="profileForm"
-      autocomplete="off"
-      novalidate
-      (ngSubmit)="saveProfile()"
-    >
+  <div class="col-xs-1"></div>
+  <div class="col-xs-10">
+    <form [formGroup]="profileForm" autocomplete="off" novalidate (ngSubmit)="saveProfile()">
       <div class="form-group" [ngClass]="{ error: !validateFirstName() }">
         <label for="firstName">First Name:</label>
-        <em
-          *ngIf="
+        <em *ngIf="
             !validateFirstName() &&
             profileForm.controls.firstName.errors.required
-          "
-          >Required</em
-        >
-        <em
-          *ngIf="
+          ">Required</em>
+        <em *ngIf="
             !validateFirstName() &&
             profileForm.controls.firstName.errors.pattern
-          "
-          >Must start with a capital letter</em
-        >
-        <input
-          id="firstName"
-          type="text"
-          class="form-control"
-          placeholder="First Name..."
-          formControlName="firstName"
-        />
+          ">Must start with a capital letter</em>
+        <input id="firstName" type="text" class="form-control" placeholder="First Name..."
+          formControlName="firstName" />
       </div>
       <div class="form-group" [ngClass]="{ error: !validateLastName() }">
         <em *ngIf="!validateLastName()">Required</em>
         <label for="lastName">Last Name:</label>
-        <input
-          id="lastName"
-          type="text"
-          class="form-control"
-          placeholder="Last Name..."
-          formControlName="lastName"
-        />
+        <input id="lastName" type="text" class="form-control" placeholder="Last Name..." formControlName="lastName" />
       </div>
 
-      <button type="submit" class="btn btn-primary">Save</button>
-      <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
-      <button type="button" class="btn btn-warning" style="float: right" (click)="logout()">Logout</button>
+      <div class="btn-group btn-group-sm">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+      </div>
+      <div class="btn-group btn-group-sm" style="float: right">
+        <button type="button" class="btn btn-warning" (click)="logout()">Logout</button>
+      </div>
     </form>
   </div>
+  <div class="col-xs-1"></div>
 </div>

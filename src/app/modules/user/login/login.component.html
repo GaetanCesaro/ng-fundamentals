@@ -1,68 +1,37 @@
 <h1>Login</h1>
 <hr />
-<div class="col-md-4"></div>
-<div class="col-md-4">
-  <form
-    #loginForm="ngForm"
-    (ngSubmit)="login(loginForm.value)"
-    autocomplete="off"
-  >
+<div class="col-xs-4"></div>
+<div class="col-xs-4">
+  <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)" autocomplete="off">
     <div class="form-group">
       <label for="userName">User Name:</label>
-      <em
-        *ngIf="
+      <em *ngIf="
           loginForm.controls.userName?.invalid &&
           (loginForm.controls.userName?.touched || mouseoverLogin)
-        "
-        >Required</em
-      >
-      <input
-        (ngModel)="(password)"
-        name="userName"
-        id="userName"
-        type="text"
-        class="form-control"
-        placeholder="User Name..."
-        required
-      />
+        ">Required</em>
+      <input (ngModel)="(password)" name="userName" id="userName" type="text" class="form-control"
+        placeholder="User Name..." required />
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
-      <em
-        *ngIf="
+      <em *ngIf="
           loginForm.controls.password?.invalid &&
           (loginForm.controls.password?.touched || mouseoverLogin)
-        "
-        >Required</em
-      >
-      <input
-        (ngModel)="(password)"
-        name="password"
-        id="password"
-        type="password"
-        class="form-control"
-        placeholder="Password..."
-        required
-      />
+        ">Required</em>
+      <input (ngModel)="(password)" name="password" id="password" type="password" class="form-control"
+        placeholder="Password..." required />
     </div>
 
-    <span
-      (mouseenter)="mouseoverLogin = true"
-      (mouseleave)="mouseoverLogin = false"
-    >
-      <button
-        type="submit"
-        [disabled]="!loginForm.valid"
-        class="btn btn-primary"
-      >
+    <span (mouseenter)="mouseoverLogin = true" (mouseleave)="mouseoverLogin = false">
+      <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary btn-sm">
         Login
       </button>
     </span>
-    <button type="button" (click)="cancel()" class="btn btn-default">
+    <button type="button" (click)="cancel()" class="btn btn-default btn-sm" style="float: right">
       Cancel
     </button>
   </form>
-  <br/>
+  <br />
   <div *ngIf="loginInvalid" class="alert alert-danger">Invalid login informations</div>
 </div>
-<div class="col-md-4"></div>
+<div class="col-xs-4"></div>
