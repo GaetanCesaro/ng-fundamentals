@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TOASTR_TOKEN, Toastr } from "./services/toastr.service";
 import { JQUERY_TOKEN } from "./services/jquery.service";
 import { AuthService } from "./services/auth.service";
+import { VoterService } from "./services/voter.service";
 import { appRoutes } from "src/routes";
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
@@ -72,6 +73,7 @@ let jquery = window['$'];
     EventResolver,
     EventListResolver,
     AuthService,
+    VoterService,
     { provide: "canDeactivateCreateEvent", useValue: checkDirtyState }
   ],
   bootstrap: [EventsAppComponent]

@@ -25,13 +25,16 @@
     <hr>
 
     <div class="row">
-        <div class="col-md-2" style="margin-bottom: 10px;">
-            <h3>Sessions</h3>
-            <button type="button" class="btn btn-default" (click)="addSession()">Add Session</button>
-            <button type="button" class="btn btn-warning" style="float: right" (click)="deleteEvent()">Delete Event</button>
-        </div>
-        <div class="col-md-6">
+        <h3>Sessions</h3>
+        <div class="col-md-6" style="margin: 10px 0 10px 0;">
             <div class="btn-group btn-group-sm" style="margin: 0 10px 0 10px;">
+                <button type="button" class="btn btn-default" (click)="addSession()">Add Session</button>
+                <button type="button" class="btn btn-warning" style="float: right" (click)="deleteEvent()">Delete
+                    Event</button>
+            </div>
+        </div>
+        <div class="col-md-6" style="margin: 10px 0 10px 0;">
+            <div class="btn-group btn-group-sm" style="margin: 0 20px 0 20px;">
                 <button class="btn btn-default" [class.active]="sortBy==='name'" (click)="sortBy='name'">By
                     Name</button>
                 <button class="btn btn-default" [class.active]="sortBy==='votes'" (click)="sortBy='votes'">By
@@ -50,7 +53,8 @@
         </div>
     </div>
 
-    <session-list *ngIf="!addMode" [filterBy]="filterBy" [sortBy]="sortBy" [sessions]="event?.sessions"></session-list>
+    <session-list *ngIf="!addMode" [filterBy]="filterBy" [sortBy]="sortBy" [sessions]="event?.sessions">
+    </session-list>
 
     <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" (cancelNewSession)="cancelNewSession()">
     </create-session>
